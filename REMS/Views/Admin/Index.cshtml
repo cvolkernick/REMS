@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Admin Dashboard";
+}
+
+<h2>Admin Dashboard</h2>
+
+<ul>
+    <li>@Html.ActionLink("Add User", "AddUser", "Admin", routeValues: null, htmlAttributes: new { Title = "Add User" })</li>
+    <li>@Html.ActionLink("Delete User", "DeleteUser", "Admin", routeValues: null, htmlAttributes: new { Title = "Delete User" })</li>
+    <li>@Html.ActionLink("Update User", "UpdateUser", "Admin", routeValues: null, htmlAttributes: new { Title = "Update User" })</li>
+</ul>
