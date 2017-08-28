@@ -69,12 +69,7 @@ namespace REMS.ViewModels
     }
 
     public class UpdateViewModel
-    {
-        [Required]
-        [Display(Name = "Mode")]
-        public string Mode { get; set; }
-
-        [Required]
+    {           
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -88,6 +83,9 @@ namespace REMS.ViewModels
 
         [Display(Name = "ActionStatusMessageViewModel")]
         public ActionStatusViewModel ActionStatusMessageViewModel { get; set; }
+
+        [Display(Name = "Mode")]
+        public string Mode { get; set; }
 
         public UpdateViewModel()
         {

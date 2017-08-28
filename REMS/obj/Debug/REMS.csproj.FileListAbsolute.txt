@@ -80,3 +80,6 @@ C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\bin\Microsoft.Owi
 C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\obj\Debug\REMS.dll
 C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\obj\Debug\REMS.pdb
+C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\obj\Debug\REMS.Migrations.Initial.resources
+C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\obj\Debug\REMS.csproj.GenerateResource.Cache
+C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\obj\Debug\REMS.Migrations.Complexes_name_add.resources

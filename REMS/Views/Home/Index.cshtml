@@ -2,6 +2,16 @@
     ViewBag.Title = "Welcome";
 }
 
+@if (User.IsInRole("Client"))
+{
+    // Client Summary
+}
+
+@if (User.IsInRole("Staff"))
+{
+    // Staff Summary
+}
+
 <div class="jumbotron">
     <h1>REMS</h1>
     <h2>Real Estate Management System</h2>
@@ -24,7 +34,7 @@
             <ul>
                 <li>Payment Processing</li>
                 <li>Client / Tenant Management</li>
-                <li>Maintenance Schedliing</li>
+                <li>Maintenance Scheduling</li>
                 <li>Mass Messaging (Announcements)</li>
                 <li>Reminders (SMS / Email)</li>
                 <li>Virtual Unit Tours</li>

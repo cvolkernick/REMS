@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using REMS.DataAccess;
 using REMS.Models;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,43 @@ namespace REMS.Controllers
     {
         public ActionResult Index()
         {
+            REMSDAL dal = new REMSDAL();
+
+            Tenant t = new Tenant();
+            Complex c = new Complex();
+            Unit u = new Unit();
+            Address a = new Address();
+            ContactInfo i = new ContactInfo();
+
+            a.Address1 = "123 Test Street";
+            a.City = "Test City";
+            a.State = "Test State";
+            a.Zip = "12345";
+
+            i.Address = a;
+            i.Phone1 = "555-555-5555";
+            i.Email = "test@email.com";
+
+            t.FirstName = "Test";
+            t.LastName = "Tenant";
+            t.ContactInfo = i;
+
+            u.Name = "Test Unit";
+            u.AddTenant(t);
+
+            c.Name = "Test Complex";
+            c.Address = a;
+            c.AddUnit(u);                       
+
+            dal.Tenants.Add(t);
+            dal.Addresses.Add(a);
+            dal.Contacts.Add(i);
+
+            dal.Complexes.Add(c);
+            dal.Units.Add(u);
+
+            dal.SaveChanges();
+
             return View();
         }
 
