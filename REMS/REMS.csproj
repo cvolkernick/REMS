@@ -302,6 +302,9 @@
     <Content Include="Views\Shared\EditorTemplates\AddressFormPartial.cshtml" />
     <Content Include="Views\Admin\AddOwner.cshtml" />
     <Content Include="Views\Shared\Partials\AdminSummaryPartial.cshtml" />
+    <Content Include="Views\Admin\AddStaff.cshtml" />
+    <Content Include="Views\Admin\AddUnit.cshtml" />
+    <Content Include="Views\Admin\AddTenant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

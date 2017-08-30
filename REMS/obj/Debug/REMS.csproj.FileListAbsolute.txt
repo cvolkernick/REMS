@@ -82,3 +82,4 @@ C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\obj\Debug\REMS.pd
 C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\obj\Debug\REMS.Migrations.First.resources
 C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\obj\Debug\REMS.csproj.GenerateResource.Cache
 C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\obj\Debug\REMS.Migrations.next.resources
+C:\Users\cvolk\documents\visual studio 2015\Projects\REMS\REMS\obj\Debug\REMS.csprojResolveAssemblyReference.cache

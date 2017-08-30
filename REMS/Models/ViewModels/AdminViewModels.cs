@@ -91,6 +91,23 @@ namespace REMS.ViewModels
         }
     }
 
+    public class AddStaffViewModel
+    {
+        [Display(Name = "ActionStatusMessageViewModel")]
+        public ActionStatusViewModel ActionStatusMessageViewModel { get; set; }
+
+        [Display(Name = "FirstName")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "LastName")]
+        public string LastName { get; set; }
+
+        public AddStaffViewModel()
+        {
+            ActionStatusMessageViewModel = new ActionStatusViewModel();
+        }
+    }
+
     public class AssignStaffViewModel
     {
         [Required]
@@ -153,6 +170,40 @@ namespace REMS.ViewModels
         public ActionStatusViewModel ActionStatusMessageViewModel { get; set; }
 
         public AddOwnerViewModel()
+        {
+            ActionStatusMessageViewModel = new ActionStatusViewModel();
+        }
+    }
+
+    public class AddUnitViewModel
+    {
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Display(Name = "ActionStatusMessageViewModel")]
+        public ActionStatusViewModel ActionStatusMessageViewModel { get; set; }
+
+        public AddUnitViewModel()
+        {
+            ActionStatusMessageViewModel = new ActionStatusViewModel();
+        }
+    }
+
+    public class AddTenantViewModel
+    {
+        [Display(Name = "FirstName")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "LastName")]
+        public string LastName { get; set; }
+
+        [Display(Name = "ContactInfo")]
+        public ContactInfo ContactInfo { get; set; }
+
+        [Display(Name = "ActionStatusMessageViewModel")]
+        public ActionStatusViewModel ActionStatusMessageViewModel { get; set; }
+
+        public AddTenantViewModel()
         {
             ActionStatusMessageViewModel = new ActionStatusViewModel();
         }

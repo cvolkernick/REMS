@@ -26,6 +26,7 @@ namespace REMS.Controllers
                     viewModel.ComplexesCount = dal.Complexes.Count();
                     viewModel.StaffCount = dal.StaffMembers.Count();
                     viewModel.TenantCount = dal.Tenants.Count();
+                    viewModel.UnitsCount = dal.Units.Count();
                 }
 
                     return View(viewModel);

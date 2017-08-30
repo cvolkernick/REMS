@@ -203,6 +203,52 @@ namespace REMS.Controllers
         #endregion
 
         #region StaffFunctions
+
+        public ActionResult AddStaff()
+        {
+            AddStaffViewModel viewModel = new AddStaffViewModel();
+            viewModel.FirstName = "";
+            viewModel.LastName = "";
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddStaff(AddStaffViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                using (REMSDAL dal = new REMSDAL())
+                {
+                    StaffMember staff = new StaffMember();
+                    staff.FirstName = viewModel.FirstName;
+                    staff.LastName = viewModel.LastName;
+
+                    dal.StaffMembers.Add(staff);
+
+                    var result = await dal.SaveChangesAsync();
+
+                    if (result > 0)
+                    {
+                        viewModel.ActionStatusMessageViewModel.StatusMessage = "Staff Member " + viewModel.FirstName + " " + viewModel.LastName + " added.";
+                        viewModel.FirstName = "";
+                        viewModel.LastName = "";
+
+                        return View(viewModel);
+                    }
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+                        
+            viewModel.ActionStatusMessageViewModel.StatusMessage = "There was an issue processing your request.";
+            viewModel.FirstName = "";
+            viewModel.LastName = "";
+
+            return View(viewModel);
+        }
+
         public ActionResult AssignStaff()
         {
             AssignStaffViewModel viewModel = new AssignStaffViewModel();
@@ -302,6 +348,107 @@ namespace REMS.Controllers
 
             viewModel.Owners = GetOwners();
             viewModel.ActionStatusMessageViewModel.StatusMessage = "There was an issue processing your request.";
+
+            return View(viewModel);
+        }
+
+        public ActionResult AddUnit()
+        {
+            AddUnitViewModel viewModel = new AddUnitViewModel();
+            viewModel.Name = "";
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddUnit(AddUnitViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                using (REMSDAL dal = new REMSDAL())
+                {
+                    Unit unit = new Unit();
+                    unit.Name = viewModel.Name;
+
+                    dal.Units.Add(unit);
+
+                    var result = await dal.SaveChangesAsync();
+
+                    if (result > 0)
+                    {
+                        viewModel.ActionStatusMessageViewModel.StatusMessage = "Unit " + viewModel.Name + " added.";
+                        viewModel.Name = "";
+
+                        return View(viewModel);
+                    }
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+                        
+            viewModel.ActionStatusMessageViewModel.StatusMessage = "There was an issue processing your request.";
+            viewModel.Name = "";
+
+            return View(viewModel);
+        }
+
+        public ActionResult AddTenant()
+        {
+            AddTenantViewModel viewModel = new AddTenantViewModel();
+            viewModel.FirstName = "";
+            viewModel.LastName = "";
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddTenant(AddTenantViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Tenant tenant = new Tenant();
+                ContactInfo newContactInfo = new ContactInfo();
+                Address newAddress = new Address();
+
+                newAddress.Address1 = viewModel.ContactInfo.Address.Address1;
+                newAddress.Address2 = viewModel.ContactInfo.Address.Address2;
+                newAddress.City = viewModel.ContactInfo.Address.City;
+                newAddress.State = viewModel.ContactInfo.Address.State;
+                newAddress.Zip = viewModel.ContactInfo.Address.Zip;
+
+                newContactInfo.Address = newAddress;
+                newContactInfo.Email = viewModel.ContactInfo.Email;
+                newContactInfo.Phone1 = viewModel.ContactInfo.Phone1;
+                newContactInfo.Phone2 = viewModel.ContactInfo.Phone2;
+
+                tenant.FirstName = viewModel.FirstName;
+                tenant.LastName = viewModel.LastName;
+                tenant.ContactInfo = newContactInfo;
+
+                using (REMSDAL dal = new REMSDAL())
+                {
+                    dal.Tenants.Add(tenant);
+
+                    var result = await dal.SaveChangesAsync();
+
+                    if (result > 0)
+                    {
+                        viewModel.ActionStatusMessageViewModel.StatusMessage = "Tenant " + viewModel.FirstName + " " + viewModel.LastName + " added.";
+                        viewModel.FirstName = "";
+                        viewModel.LastName = "";
+
+                        return View(viewModel);
+                    }
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+                        
+            viewModel.ActionStatusMessageViewModel.StatusMessage = "There was an issue processing your request.";
+            viewModel.FirstName = "";
+            viewModel.LastName = "";
 
             return View(viewModel);
         }
