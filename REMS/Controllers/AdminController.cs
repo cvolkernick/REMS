@@ -63,6 +63,19 @@ namespace REMS.Controllers
         }
 
         #region UserFunctions
+
+        public ActionResult ViewUsers()
+        {
+            UsersViewModel viewModel = new UsersViewModel();
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                viewModel.Users = context.Users.Include(u => u.Roles).ToList();
+                viewModel.Roles = context.Roles.Include(r => r.Users).ToList();
+            }                
+
+            return View(viewModel);
+        }
+
         public ActionResult AddUser()
         {
             AddViewModel viewModel = new AddViewModel();
@@ -110,62 +123,49 @@ namespace REMS.Controllers
             return View(viewModel);
         }
 
-        public ActionResult DeleteUser()
+        public async Task<ActionResult> DeleteUser(string userName)
         {
-            DeleteViewModel viewModel = new DeleteViewModel();
-            viewModel.Users = GetUserNames();
+            var user = UserManager.Users.SingleOrDefault(u => u.UserName == userName);
+            var result = await UserManager.DeleteAsync(user);
+            UsersViewModel viewModel = new UsersViewModel();
 
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteUser(DeleteViewModel viewModel)
-        {
-            if (ModelState.IsValid)
+            if (result.Succeeded)
             {
-                var user = UserManager.Users.SingleOrDefault(u => u.UserName == viewModel.UserName);
-                var result = await UserManager.DeleteAsync(user);
+                viewModel.ActionStatusMessageViewModel.StatusMessage = "User " + userName + " deleted.";
 
-                if (result.Succeeded)
+                using (ApplicationDbContext context = new ApplicationDbContext())
                 {
-                    viewModel.ActionStatusMessageViewModel.StatusMessage = "User " + viewModel.UserName + " deleted.";
-                    viewModel.Users = GetUserNames();
-
-                    return View(viewModel);
+                    viewModel.Users = context.Users.Include(u => u.Roles).ToList();
+                    viewModel.Roles = context.Roles.Include(r => r.Users).ToList();
                 }
 
-                AddErrors(result);
+                return View("ViewUsers", viewModel);
             }
 
+            AddErrors(result);            
+
             // If we got this far, something failed, redisplay form
-
-            viewModel.Users = GetUserNames();            
+         
             viewModel.ActionStatusMessageViewModel.StatusMessage = "There was an issue processing your request.";
-
-            return View(viewModel);
-        }
-
-        public ActionResult UpdateUser()
-        {
-            UpdateViewModel viewModel = new UpdateViewModel();
-            viewModel.UserNames = GetUserNames();
-            viewModel.Mode = "Selecting";
             
-            return View(viewModel);
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                viewModel.Users = context.Users.Include(u => u.Roles).ToList();
+                viewModel.Roles = context.Roles.Include(r => r.Users).ToList();
+            }
+
+            return View("ViewUsers", viewModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult UpdateUserSelect(UpdateViewModel viewModel)
+        public ActionResult UpdateUser(string userName)
         {
-            var selectedUser = GetUser(viewModel.UserName);
+            var selectedUser = GetUser(userName);
 
-            viewModel.Mode = "Updating";
+            UpdateViewModel viewModel = new UpdateViewModel();
             viewModel.Email = selectedUser.Email;
             viewModel.UserName = selectedUser.UserName;
 
-            return View("UpdateUser", viewModel);
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -178,13 +178,12 @@ namespace REMS.Controllers
 
                 user.Email = viewModel.Email;
                 user.UserName = viewModel.UserName;
-                
+
                 var result = await UserManager.UpdateAsync(user);
 
                 if (result.Succeeded)
                 {
                     viewModel.ActionStatusMessageViewModel.StatusMessage = viewModel.UserName + " updated.";
-                    viewModel.Mode = "Selecting";
                     viewModel.UserNames = GetUserNames();
 
                     return View(viewModel);

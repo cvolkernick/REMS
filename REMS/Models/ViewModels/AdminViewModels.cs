@@ -1,4 +1,6 @@
-﻿using REMS.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using REMS.Models;
+using REMS.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +11,20 @@ using System.Web.Mvc;
 namespace REMS.ViewModels
 {
     public class AdminViewModels { }
+
+    public class UsersViewModel
+    {
+        public List<ApplicationUser> Users { get; set; }
+        public List<IdentityRole> Roles { get; set; }
+
+        [Display(Name = "ActionStatusMessageViewModel")]
+        public ActionStatusViewModel ActionStatusMessageViewModel { get; set; }
+
+        public UsersViewModel()
+        {
+            ActionStatusMessageViewModel = new ActionStatusViewModel();
+        }
+    }
 
     public class AddViewModel
     {
@@ -35,7 +51,7 @@ namespace REMS.ViewModels
         [Required]
         [Display(Name = "SelectedRole")]
         public string SelectedRole { get; set; }
-        
+
         [Display(Name = "UserRoles")]
         public SelectList UserRoles { get; set; }
 
@@ -48,26 +64,8 @@ namespace REMS.ViewModels
         }
     }
 
-    public class DeleteViewModel
-    {
-        [Required]
-        [Display(Name = "UserName")]
-        public string UserName { get; set; }
-
-        [Display(Name = "Users")]
-        public SelectList Users { get; set; }
-
-        [Display(Name = "ActionStatusMessageViewModel")]
-        public ActionStatusViewModel ActionStatusMessageViewModel { get; set; }
-
-        public DeleteViewModel()
-        {
-            ActionStatusMessageViewModel = new ActionStatusViewModel();
-        }
-    }
-
     public class UpdateViewModel
-    {           
+    {
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -143,7 +141,7 @@ namespace REMS.ViewModels
 
         [Display(Name = "SelectedOwner")]
         public Guid SelectedOwner { get; set; }
-        
+
         [Display(Name = "Owners")]
         public SelectList Owners { get; set; }
 
@@ -162,10 +160,10 @@ namespace REMS.ViewModels
         [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
-        
+
         [Display(Name = "ContactInfo")]
         public ContactInfo ContactInfo { get; set; }
-                
+
         [Display(Name = "ActionStatusMessageViewModel")]
         public ActionStatusViewModel ActionStatusMessageViewModel { get; set; }
 
