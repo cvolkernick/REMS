@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using REMS.DataAccess;
 using REMS.Models;
 using REMS.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,13 +19,13 @@ namespace REMS.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        ApplicationDbContext context;        
+        ApplicationDbContext identityContext;     
 
         public AdminController()
         {
-            context = new ApplicationDbContext();            
+            identityContext = new ApplicationDbContext();            
         }
-
+        #region IdentityFunctions
         public AdminController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -53,12 +55,14 @@ namespace REMS.Controllers
                 _userManager = value;
             }
         }
-        
+#endregion
+
         public ActionResult Index()
         {
             return View();
         }
-        
+
+        #region UserFunctions
         public ActionResult AddUser()
         {
             AddViewModel viewModel = new AddViewModel();
@@ -196,7 +200,174 @@ namespace REMS.Controllers
 
             return View(viewModel);
         }
+        #endregion
 
+        #region StaffFunctions
+        public ActionResult AssignStaff()
+        {
+            AssignStaffViewModel viewModel = new AssignStaffViewModel();
+            viewModel.Users = GetUserNames();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AssignStaff(AssignStaffViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                using (REMSDAL dal = new REMSDAL())
+                {
+                    var user = UserManager.Users.SingleOrDefault(u => u.UserName == viewModel.UserName);
+                    var staffMember = dal.StaffMembers.SingleOrDefault(s => s.Id == viewModel.StaffId);
+
+                    staffMember.UserId = user.UserName;
+
+                    var result = await dal.SaveChangesAsync();
+
+
+
+                    // ^^^ NEW CODE ^^^
+
+                    if (result > 0)
+                    {
+                        viewModel.ActionStatusMessageViewModel.StatusMessage = "Staff member " + staffMember.FirstName + staffMember.LastName + " updated.";
+                        viewModel.Users = GetUserNames();
+                        //viewModel.StaffMembers = dal.StaffMembers.SingleOrDefault(s => s.Id == viewModel.StaffId);
+
+                        return View(viewModel);
+                    }
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+
+            viewModel.Users = GetUserNames();
+            viewModel.ActionStatusMessageViewModel.StatusMessage = "There was an issue processing your request.";
+
+            return View(viewModel);
+        }
+        #endregion
+
+        #region PropertyFunctions
+        public ActionResult AddComplex()
+        {
+            AddComplexViewModel viewModel = new AddComplexViewModel();
+            viewModel.Owners = GetOwners();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddComplex(AddComplexViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                using (REMSDAL dal = new REMSDAL())
+                {
+                    var owner = GetOwner(viewModel.SelectedOwner);
+                    dal.Owners.Attach(owner);
+
+                    Complex complex = new Complex();
+                    complex.Name = viewModel.Name;
+
+                    Address address = new Address();
+                    address.Address1 = viewModel.AddressViewModel.Address1;
+                    address.Address2 = viewModel.AddressViewModel.Address2;
+                    address.City = viewModel.AddressViewModel.City;
+                    address.State = viewModel.AddressViewModel.State;
+                    address.Zip = viewModel.AddressViewModel.Zip;
+
+                    complex.Address = address;
+                    complex.AddressId = address.Id;
+                    complex.AddOwner(owner);
+                    
+                    dal.Complexes.Add(complex);
+                                
+                    var result = await dal.SaveChangesAsync();
+
+                    if (result > 0)
+                    {
+                        viewModel.ActionStatusMessageViewModel.StatusMessage = "Complex " + viewModel.Name + " added.";
+                        viewModel.Owners = GetOwners();
+
+                        return View(viewModel);
+                    }
+                }           
+            }
+
+            // If we got this far, something failed, redisplay form
+
+            viewModel.Owners = GetOwners();
+            viewModel.ActionStatusMessageViewModel.StatusMessage = "There was an issue processing your request.";
+
+            return View(viewModel);
+        }
+        #endregion
+
+        #region ManagementFunctions
+
+        public ActionResult AddOwner()
+        {
+            AddOwnerViewModel viewModel = new AddOwnerViewModel();
+            viewModel.Name = "";
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddOwner(AddOwnerViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Owner newOwner = new Owner();
+                ContactInfo newContactInfo = new ContactInfo();
+                Address newAddress = new Address();
+
+                newAddress.Address1 = viewModel.ContactInfo.Address.Address1;
+                newAddress.Address2 = viewModel.ContactInfo.Address.Address2;
+                newAddress.City = viewModel.ContactInfo.Address.City;
+                newAddress.State = viewModel.ContactInfo.Address.State;
+                newAddress.Zip = viewModel.ContactInfo.Address.Zip;
+
+                newContactInfo.Address = newAddress;
+                newContactInfo.Email = viewModel.ContactInfo.Email;
+                newContactInfo.Phone1 = viewModel.ContactInfo.Phone1;
+                newContactInfo.Phone2 = viewModel.ContactInfo.Phone2;
+
+                newOwner.Name = viewModel.Name;
+                newOwner.ContactInfo = newContactInfo;
+
+                using (REMSDAL dal = new REMSDAL())
+                {
+                    dal.Owners.Add(newOwner);
+
+                    var result = await dal.SaveChangesAsync();
+
+                    if (result > 0)
+                    {
+                        viewModel.ActionStatusMessageViewModel.StatusMessage = "Owner " + viewModel.Name + " added.";
+                        viewModel.Name = "";
+
+                        return View(viewModel);
+                    }
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+
+            viewModel.Name = "";
+            viewModel.ActionStatusMessageViewModel.StatusMessage = "There was an issue processing your request.";
+
+            return View(viewModel);
+        }
+
+        #endregion
+
+        #region PrivateHelpers
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -207,19 +378,36 @@ namespace REMS.Controllers
 
         private SelectList GetUserRoles()
         {
-            return new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            return new SelectList(identityContext.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
         }
 
         private SelectList GetUserNames()
         {
             var currentUserName = User.Identity.Name;
 
-            return new SelectList(context.Users.Where(u => !u.UserName.Contains(currentUserName)).ToList(), "UserName", "UserName");
+            return new SelectList(identityContext.Users.Where(u => !u.UserName.Contains(currentUserName)).ToList(), "UserName", "UserName");
         }
 
         private ApplicationUser GetUser(string userName)
         {
             return UserManager.Users.SingleOrDefault(u => u.UserName == userName);
         }
+
+        private SelectList GetOwners()
+        {
+            using (REMSDAL dal = new REMSDAL())
+            {
+                return new SelectList(dal.Owners.ToList(), "Id", "Name");
+            }                
+        }
+
+        private Owner GetOwner(Guid ownerId)
+        {
+            using (REMSDAL dal = new REMSDAL())
+            {
+                return dal.Owners.FirstOrDefault(o => o.Id == ownerId);
+            }                
+        }
+        #endregion
     }
 }

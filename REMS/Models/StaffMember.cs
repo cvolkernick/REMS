@@ -1,35 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace REMS.Models
 {
-    public class Tenant
+    public class StaffMember
     {
         [Key]
         public Guid Id { get; set; }
         public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        
-        public Guid ContactInfoId { get; set; }
-        [ForeignKey("ContactInfoId")]
-        public ContactInfo ContactInfo { get; set; }
-        
-        public virtual ICollection<Unit> Units { get; set; }
 
-        public Tenant()
+        public virtual ICollection<Owner> Employers { get; set; }
+
+        public StaffMember()
         {
             this.Id = System.Guid.NewGuid();
-            this.Units = new HashSet<Unit>();
+            this.Employers = new HashSet<Owner>();
         }
 
-        public void AddUnit(Unit unit)
+        public void AddEmployer(Owner employer)
         {
-            Units.Add(unit);
+            Employers.Add(employer);
         }
     }
 }

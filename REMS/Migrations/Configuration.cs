@@ -10,6 +10,7 @@ namespace REMS.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(REMS.DataAccess.REMSDAL context)

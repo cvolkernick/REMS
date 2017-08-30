@@ -199,17 +199,19 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Controllers\TenantController.cs" />
     <Compile Include="DataAccess\REMSDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708280715058_Initial.cs" />
-    <Compile Include="Migrations\201708280715058_Initial.Designer.cs">
-      <DependentUpon>201708280715058_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201708300140476_First.cs" />
+    <Compile Include="Migrations\201708300140476_First.Designer.cs">
+      <DependentUpon>201708300140476_First.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708280719515_Complexes_name_add.cs" />
-    <Compile Include="Migrations\201708280719515_Complexes_name_add.Designer.cs">
-      <DependentUpon>201708280719515_Complexes_name_add.cs</DependentUpon>
+    <Compile Include="Migrations\201708300151317_next.cs" />
+    <Compile Include="Migrations\201708300151317_next.Designer.cs">
+      <DependentUpon>201708300151317_next.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -217,6 +219,8 @@
     <Compile Include="Models\Complex.cs" />
     <Compile Include="Models\ContactInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Owner.cs" />
+    <Compile Include="Models\StaffMember.cs" />
     <Compile Include="Models\Unit.cs" />
     <Compile Include="Models\ViewModels\AdminViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -250,6 +254,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="SQL\TestData.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -289,12 +294,21 @@
     <Content Include="Views\Admin\DeleteUser.cshtml" />
     <Content Include="Views\Admin\UpdateUser.cshtml" />
     <Content Include="Views\Shared\Partials\ActionStatusPartial.cshtml" />
+    <Content Include="Views\Shared\Partials\ClientSummaryPartial.cshtml" />
+    <Content Include="Views\Shared\Partials\StaffSummaryPartial.cshtml" />
+    <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Admin\AssignStaff.cshtml" />
+    <Content Include="Views\Admin\AddComplex.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AddressFormPartial.cshtml" />
+    <Content Include="Views\Admin\AddOwner.cshtml" />
+    <Content Include="Views\Shared\Partials\AdminSummaryPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
     <Folder Include="Validation\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Tenant\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -305,11 +319,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708280715058_Initial.resx">
-      <DependentUpon>201708280715058_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708300140476_First.resx">
+      <DependentUpon>201708300140476_First.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708280719515_Complexes_name_add.resx">
-      <DependentUpon>201708280719515_Complexes_name_add.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708300151317_next.resx">
+      <DependentUpon>201708300151317_next.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

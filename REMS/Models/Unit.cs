@@ -13,7 +13,7 @@ namespace REMS.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
                 
-        public Guid ComplexId { get; set; }
+        public Guid? ComplexId { get; set; }
         [ForeignKey("ComplexId")]
         public virtual Complex Complex { get; set; }
 
