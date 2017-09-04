@@ -155,24 +155,6 @@ namespace REMS.ViewModels
         }
     }
 
-    public class AddOwnerViewModel
-    {
-        [Required]
-        [Display(Name = "Name")]
-        public string Name { get; set; }
-
-        [Display(Name = "ContactInfo")]
-        public ContactInfo ContactInfo { get; set; }
-
-        [Display(Name = "ActionStatusMessageViewModel")]
-        public ActionStatusViewModel ActionStatusMessageViewModel { get; set; }
-
-        public AddOwnerViewModel()
-        {
-            ActionStatusMessageViewModel = new ActionStatusViewModel();
-        }
-    }
-
     public class AddUnitViewModel
     {
         [Display(Name = "Name")]

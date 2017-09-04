@@ -1,0 +1,48 @@
+﻿@model REMS.ViewModels.UsersViewModel
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<head>
+    <style>
+        table {
+            border: solid;
+            border-width: 2px;
+        }
+
+        tr, td, th {
+            border: solid;
+            border-width: 1px;
+        }
+
+        th {
+            font-style: bold;
+        }
+    </style>
+</head>
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("~/Views/Shared/Partials/ActionStatusPartial.cshtml", Model.ActionStatusMessageViewModel)
+
+@Html.ActionLink("Add User", "AddUser", "Admin", routeValues: null, htmlAttributes: new { Title = "Add User" })
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Role(s)</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>@user.UserName</td>
+            <td>
+                @string.Join(", ", Model.Roles.Where(r => r.Users.Any(u => u.UserId == user.Id)).Select(r => r.Name))
+            </td>
+            <td>@Html.ActionLink("Update", "UpdateUser", new { userName = user.UserName })</td>
+            <td>@Html.ActionLink("Delete", "DeleteUser", new { userName = user.UserName }, new { onclick = "return confirm('Are you sure?');" })</td>
+        </tr>
+    }
+</table>

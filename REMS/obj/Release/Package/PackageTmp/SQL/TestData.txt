@@ -1,0 +1,28 @@
+﻿USE [REMS]
+GO
+
+INSERT INTO [dbo].[Addresses]
+           ([Id]
+           ,[Address1]
+           ,[City]
+           ,[State]
+           ,[Zip])
+     VALUES
+           (NEWID()
+		   ,'123 Test Street'
+           ,'Test City'          
+           ,'Test State'
+           ,'12345');
+
+INSERT INTO  [dbo].[Contacts]
+			([Id]
+			,[AddressId]
+			,[Phone1]
+			,[Email])
+	  VALUES
+			(NEWID()
+			,(SELECT [Id] FROM [dbo].[Addresses] WHERE [Address1] = '123 Test Street')
+			,'555-555-5555'
+			,'test@email.com');
+
+GO

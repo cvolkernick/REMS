@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard";
+}
+
+<h2>Admin Dashboard</h2>
+
+<div id="UserActions">
+    <ul>
+        <li>@Html.ActionLink("View / Add / Update / Delete Users", "ViewUsers", "Admin", routeValues: null, htmlAttributes: new { Title = "Users" })</li>
+    </ul>
+</div>
+<div id="StaffActions">
+    <ul>
+        <li>@Html.ActionLink("Add Owner", "AddOwner", "Admin", routeValues: null, htmlAttributes: new { Title = "Add Owner" })</li>
+        <li>@Html.ActionLink("Assign Owner", "AssignOwner", "Admin", routeValues: null, htmlAttributes: new { Title = "Assign Owner" })</li>
+        <li>@Html.ActionLink("Add Staff", "AddStaff", "Admin", routeValues: null, htmlAttributes: new { Title = "Add Staff" })</li>
+        <li>@Html.ActionLink("Assign Staff", "AssignStaff", "Admin", routeValues: null, htmlAttributes: new { Title = "Assign Staff" })</li>
+    </ul>
+</div>
+<div id="PropertyActions">
+    <ul>
+        <li>@Html.ActionLink("Add Complex", "AddComplex", "Admin", routeValues: null, htmlAttributes: new { Title = "Add Complex" })</li>
+        <li>@Html.ActionLink("Add Unit", "AddUnit", "Admin", routeValues: null, htmlAttributes: new { Title = "Add Unit" })</li>
+        <li>@Html.ActionLink("Assign Units", "AssignUnits", "Admin", routeValues: null, htmlAttributes: new { Title = "Assign Units" })</li>
+        <li>@Html.ActionLink("Add Tenant", "AddTenant", "Admin", routeValues: null, htmlAttributes: new { Title = "Add Tenant" })</li>
+        <li>@Html.ActionLink("Assign Tenant", "AssignTenant", "Admin", routeValues: null, htmlAttributes: new { Title = "Assign Tenant" })</li>
+    </ul>
+</div>

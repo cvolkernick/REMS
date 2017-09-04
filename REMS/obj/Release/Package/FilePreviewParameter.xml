@@ -7,10 +7,4 @@
   <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=(local);Initial Catalog=REMS;Integrated Security=True" tags="">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\cvolk\\documents\\visual\ studio\ 2015\\Projects\\REMS\\REMS\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
   </parameter>
-  <parameter name="REMS-Web.config Connection String" description="" value="Data Source=(local);Initial Catalog=REMS;Integrated Security=True" tags="">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\cvolk\\documents\\visual\ studio\ 2015\\Projects\\REMS\\REMS\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='REMS']/@connectionString" />
-  </parameter>
-  <parameter name="REMS.DataAccess.REMSDAL-Web.config Connection String" description="" value="Data Source=(local);Initial Catalog=REMS;Integrated Security=True" tags="">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\cvolk\\documents\\visual\ studio\ 2015\\Projects\\REMS\\REMS\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='REMS.DataAccess.REMSDAL']/@connectionString" />
-  </parameter>
 </parameters>

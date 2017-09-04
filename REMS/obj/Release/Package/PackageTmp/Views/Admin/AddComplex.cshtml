@@ -1,0 +1,36 @@
+﻿@model REMS.ViewModels.AddComplexViewModel
+
+@{
+    ViewBag.Title = "Add Complex";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("~/Views/Shared/Partials/ActionStatusPartial.cshtml", Model.ActionStatusMessageViewModel)
+
+@using (Html.BeginForm("AddComplex", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Add a New Complex</h4>
+    <hr />    
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    
+    @Html.EditorFor(x => x.AddressViewModel)
+
+    <div class="form-group">
+        @Html.Label("Owner", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("SelectedOwner", Model.Owners, "Select an Owner...")
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Add" />
+        </div>
+    </div>
+}
