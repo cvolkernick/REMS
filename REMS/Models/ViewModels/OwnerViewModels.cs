@@ -54,7 +54,7 @@ namespace REMS.Models.ViewModels
         [Display(Name = "ActionStatusMessageViewModel")]
         public ActionStatusViewModel ActionStatusMessageViewModel { get; set; }
 
-        public AddOwnerViewModel()
+        public UpdateOwnerViewModel()
         {
             ActionStatusMessageViewModel = new ActionStatusViewModel();
         }
