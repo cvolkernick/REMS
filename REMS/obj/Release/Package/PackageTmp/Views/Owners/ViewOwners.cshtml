@@ -1,0 +1,48 @@
+﻿@model REMS.Models.ViewModels.ViewOwnersViewModel
+
+@{
+    ViewBag.Title = "Owners";
+}
+
+<head>
+    <style>
+        table {
+            border: solid;
+            border-width: 2px;
+        }
+
+        tr, td, th {
+            border: solid;
+            border-width: 1px;
+        }
+
+        th {
+            font-style: bold;
+        }
+    </style>
+</head>
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("~/Views/Shared/Partials/ActionStatusPartial.cshtml", Model.ActionStatusMessageViewModel)
+
+@Html.ActionLink("Add Owner", "AddOwner", "Owners", routeValues: null, htmlAttributes: new { Title = "Add Owner" })
+<table>
+    <tr>
+        <th>Name</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var owner in Model.Owners)
+    {
+        <tr>
+            <td>@owner.Name</td>
+            <td>@Html.ActionLink("Complex(es)", "ViewComplexes", new { ownerId = owner.Id })</td>
+            <td>@Html.ActionLink("Employee(s)", "ViewStaff", new { ownerId = owner.Id })</td>
+            <td>@Html.ActionLink("Update", "UpdateOwner", new { ownerId = owner.Id })</td>
+            <td>@Html.ActionLink("Delete", "DeleteOwner", new { ownerId = owner.Id }, new { onclick = "return confirm('Are you sure?');" })</td>
+        </tr>
+    }
+</table>

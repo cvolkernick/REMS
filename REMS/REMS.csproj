@@ -200,8 +200,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OwnersController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
+    <Compile Include="Controllers\ToursController.cs" />
     <Compile Include="DataAccess\OwnersManager.cs" />
     <Compile Include="DataAccess\REMSDAL.cs" />
     <Compile Include="Global.asax.cs">
@@ -311,6 +313,8 @@
     <Content Include="Views\Owners\ViewOwners.cshtml" />
     <Content Include="Views\Owners\AddOwner.cshtml" />
     <Content Include="Views\Owners\UpdateOwner.cshtml" />
+    <Content Include="Views\Tours\Index.cshtml" />
+    <Content Include="Views\Payments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

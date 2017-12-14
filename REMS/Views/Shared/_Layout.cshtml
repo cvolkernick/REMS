@@ -20,9 +20,24 @@
                 @Html.ActionLink("REMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">                    
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            What We Offer
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Payments", "Index", "Payments")</li>
+                            <li>@Html.ActionLink("Client Management", "Index", "Clients")</li>
+                            <li>@Html.ActionLink("Maintenance", "Index", "Maintenance")</li>
+                            <li>@Html.ActionLink("Mass Messaging", "Index", "MassMessages")</li>
+                            <li>@Html.ActionLink("Reminders", "Index", "Reminders")</li>
+                            <li>@Html.ActionLink("Virtual Tours", "Index", "Tours")</li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-link-misc">@Html.ActionLink("About", "About", "Home")</li>
+                    <li class="nav-link-misc">@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

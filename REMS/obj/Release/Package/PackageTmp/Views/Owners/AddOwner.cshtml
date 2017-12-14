@@ -1,4 +1,4 @@
-﻿@model REMS.ViewModels.AddOwnerViewModel
+﻿@model REMS.Models.ViewModels.AddOwnerViewModel
 @{
     ViewBag.Title = "Add Owner";
 }
@@ -7,7 +7,9 @@
 
 @Html.Partial("~/Views/Shared/Partials/ActionStatusPartial.cshtml", Model.ActionStatusMessageViewModel)
 
-@using (Html.BeginForm("AddOwner", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@Html.ActionLink("Return to View Owners", "ViewOwners")
+
+@using (Html.BeginForm("AddOwner", "Owners", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Add a New Owner</h4>
