@@ -24,6 +24,7 @@ else
     <ul class="nav navbar-nav navbar-right">
         <!-- Removed registration for now; admin should be the only one to create new accounts -->
         
+        <!-- Need to route auth this later so you can't manually navigate to it -->
         @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>

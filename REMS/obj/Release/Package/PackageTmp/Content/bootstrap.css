@@ -3244,7 +3244,7 @@ input[type="button"].btn-block {
   margin: 2px 0 0;
   font-size: 14px;
   list-style: none;
-  background-color: #ffffff;
+  background-color: rgba(0, 0, 0, 1);
   border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
@@ -3855,6 +3855,15 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .nav > li > a > img {
   max-width: none;
+}
+
+.nav-link-misc > a {
+    font-style: italic;
+    color: #999999;
+}
+
+.navbar-nav > li > ul > li > a {
+    color: #cccccc;
 }
 
 .nav-tabs {
